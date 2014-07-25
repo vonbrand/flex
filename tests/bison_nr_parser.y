@@ -32,6 +32,7 @@
 #include "config.h"
 #include "bison_nr_parser.h"
 #include "bison_nr_scanner.h"
+#include "bison_nr_scanner_char.h"
 
 #define YYERROR_VERBOSE 1
 /* #define YYPARSE_PARAM scanner */
@@ -42,7 +43,7 @@ extern int testget_lineno(void);
 
 
 /* A dummy function. A check against seg-faults in yylval->str. */
-int process_text(char* s) {
+int process_text(YY_CHAR* s) {
     int total =0;
     while(*s) {
         total += (int) *s;
@@ -58,7 +59,7 @@ int process_text(char* s) {
 
 %union  {
     int  lineno;
-    char * str;
+    YY_CHAR * str;
 }
 %token <str> IDENT
 %token <lineno> LINENO

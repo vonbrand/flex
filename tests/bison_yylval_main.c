@@ -21,8 +21,9 @@
  * PURPOSE.
  */
 
-#include "bison_yylval_parser.h"
+<<<#include "bison_yylval_parser.h"
 #include "bison_yylval_scanner.h"
+#include "bison_yylval_scanner_char.h"
 
 int main ( int argc, char** argv )
 {

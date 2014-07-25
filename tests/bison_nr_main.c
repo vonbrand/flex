@@ -23,6 +23,7 @@
 
 #include "bison_nr_parser.h"
 #include "bison_nr_scanner.h"
+#include "bison_nr_scanner_char.h"
 
 extern int testparse(void);
 

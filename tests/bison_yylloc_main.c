@@ -23,6 +23,7 @@
 
 #include "bison_yylloc_parser.h"
 #include "bison_yylloc_scanner.h"
+#include "bison_yylloc_scanner_char.h"
 
 int main ( int argc, char** argv )
 {

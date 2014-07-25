@@ -26,8 +26,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "bison_nr_parser.h"
+#include "strutils.h"
 #include "config.h"
-static char* STRDUP(char* s1);
 #define YY_EXTRA_TYPE int
 %}
 
@@ -35,28 +35,23 @@ static char* STRDUP(char* s1);
 %option bison-locations yylineno
 %option prefix="test" header="bison_nr_scanner.h" yylineno
 %option nomain nounput noyy_top_state noyywrap nodefault noinput warn
+%option header-char="bison_nr_scanner_char.h"
 
 
 %%
 
 ^[[:digit:]]+  { 
         yylval->lineno = yylineno;
-        yylloc->first_line = (int)strtol(yytext,NULL,10);
+        yylloc->first_line = (int)yy_utils_strtol(yytext,NULL,10);
         return LINENO;
     }
 ":"  { return COLON; }
 " "  { return SPACE; }
 "="  { return EQUAL; }
-[[:alnum:]_]+ {  yylval->str = STRDUP(yytext); return IDENT;}
+[[:alnum:]_]+ {  yylval->str = yy_utils_strdup(yytext); return IDENT;}
 
 \r|\n { }
 .     { yyterminate();}
 %%
 
 
-static char* STRDUP(char* s1)
-{
-    char* s2 = (char*)malloc(strlen(s1)+1);
-    sprintf(s2,"%s",s1);
-    return s2;
-}

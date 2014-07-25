@@ -34,13 +34,14 @@
 #include "config.h"
 #include "bison_yylval_parser.h"
 #include "bison_yylval_scanner.h"
+#include "bison_yylval_scanner_char.h"
 
 #define YYERROR_VERBOSE 1
 
 int yyerror(void* scanner, const char* msg);
 
 /* A dummy function. A check against seg-faults in yylval->str. */
-int process_text(char* s) {
+int process_text(YY_CHAR* s) {
     int total =0;
     while(*s) {
         total += (int) *s;
@@ -56,7 +57,7 @@ int process_text(char* s) {
 
 %union  {
     long unused;
-    char * str;
+    YY_CHAR * str;
 }
 
 %token <str> TAGNAME TEXT

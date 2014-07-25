@@ -27,7 +27,7 @@
 #include <stdlib.h>
 #include "bison_yylval_parser.h"
 #include "config.h"
-static char* STRDUP(char* s1);
+#include "strutils.h"
 
 enum yesno_t { no=0, yes=1 };
 #define YY_EXTRA_TYPE  enum yesno_t
@@ -37,6 +37,8 @@ enum yesno_t { no=0, yes=1 };
 %option reentrant bison-bridge
 %option header="bison_yylval_scanner.h"
 %option noyywrap nomain nounput noyy_top_state noyywrap nodefault noinput warn
+%option noyywrap nomain nounput noyy_top_state noyywrap nodefault warn
+%option header-char="bison_yylval_scanner_char.h"
 %option stack
 
 
@@ -52,14 +54,14 @@ enum yesno_t { no=0, yes=1 };
 "</"       { NEED_TAG_NAME= yes; yy_push_state( IN_TAG, yyscanner); return LTSLASH;}
 "<"[^[:alpha:]]  { yy_push_state(DISCARD_THRU_GT,yyscanner); }
 "<"        { NEED_TAG_NAME= yes; yy_push_state( IN_TAG, yyscanner); return  LT; }
-[^<]{1,512} { yyget_lval(yyscanner)->str = STRDUP(yytext); return TEXT;}
+[^<]{1,512} { yyget_lval(yyscanner)->str = yy_utils_strdup(yytext); return TEXT;}
 }
 <IN_TAG>{
 ">"  { yy_pop_state( yyscanner ); return GT; }
 [[:alpha:]][[:alnum:]]* {
         if( NEED_TAG_NAME == yes){
             NEED_TAG_NAME=no;
-            yylval->str = STRDUP(yytext);
+            yylval->str = yy_utils_strdup(yytext);
             return TAGNAME;
         }
     }
@@ -71,11 +73,3 @@ enum yesno_t { no=0, yes=1 };
 ">"        { yy_pop_state(yyscanner);}
 }
 %%
-
-
-static char* STRDUP(char* s1)
-{
-    char* s2 = (char*)malloc(strlen(s1)+1);
-    sprintf(s2,"%s",s1);
-    return s2;
-}

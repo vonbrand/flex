@@ -38,13 +38,17 @@ main ( int argc, char** argv )
     S1_FlexLexer* S1 = new S1_FlexLexer;
     S2_FlexLexer* S2 = new S2_FlexLexer;
 
-    // scan simultaneously. 
-    while(S1_ok || S2_ok)
-    {
-        if (S1_ok)
-            S1_ok = S1->yylex();
-        if (S2_ok)
-            S2_ok = S2->yylex();
+    while(testlex(scanner)) {
+        YY_CHAR * text;
+        int line;
+        line = testget_lineno(scanner);
+        text = testget_text(scanner);
+        
+        if( (char*)testget_extra(scanner) != extra)
+            break;
+        
+        if ( !text || line < 0)
+            continue;
     }
     printf("TEST RETURNING OK.\n");
     delete S1;

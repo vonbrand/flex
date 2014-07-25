@@ -960,7 +960,7 @@ void gen_NUL_trans (void)
 		/* We're going to need yy_cp lying around for the call
 		 * below to gen_backing_up().
 		 */
-		indent_puts ("char *yy_cp = YY_G(yy_c_buf_p);");
+		indent_puts ("YY_CHAR *yy_cp = YY_G(yy_c_buf_p);");
 
 	outc ('\n');
 
@@ -1709,7 +1709,7 @@ void make_tables (void)
 			indent_puts
 				("static yy_state_type yy_last_accepting_state;");
 			indent_puts
-				("static char *yy_last_accepting_cpos;\n");
+				("static YY_CHAR *yy_last_accepting_cpos;\n");
 		}
 	}
 
@@ -1781,7 +1781,7 @@ void make_tables (void)
 		/* Declare state buffer variables. */
 		if (!C_plus_plus && !reentrant) {
 			outn ("static yy_state_type *yy_state_buf=0, *yy_state_ptr=0;");
-			outn ("static char *yy_full_match;");
+			outn ("static YY_CHAR *yy_full_match;");
 			outn ("static int yy_lp;");
 		}
 
@@ -1876,14 +1876,14 @@ void make_tables (void)
 			outn ("#define YYLMAX 8192");
 			outn ("#endif\n");
 			if (!reentrant){
-                outn ("char yytext[YYLMAX];");
-                outn ("char *yytext_ptr;");
+                outn ("YY_CHAR yytext[YYLMAX];");
+                outn ("YY_CHAR *yytext_ptr;");
             }
 		}
 
 		else {
 			if(! reentrant)
-                outn ("char *yytext;");
+                outn ("YY_CHAR *yytext;");
 		}
 	}
 
