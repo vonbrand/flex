@@ -39,6 +39,7 @@ AC_SUBST(SHARED_VERSION_INFO)
 
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.18])
+AM_GNU_GETTEXT_REQUIRE_VERSION([0.18])
 AC_PROG_YACC
 AS_IF([test "$YACC" != 'bison -y'], [
 	YACC="\${top_srcdir}/build-aux/missing bison -y"
