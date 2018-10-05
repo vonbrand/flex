@@ -2618,7 +2618,7 @@ maintenance or development.
 @opindex ---tables-file
 @opindex tables-file
 @item --tables-file=FILE
-Write serialized scanner dfa tables to FILE. The generated scanner will not
+Write serialized scanner DFA tables to FILE. The generated scanner will not
 contain the tables, and requires them to be loaded at runtime.
 @xref{serialization}.
 
@@ -2627,7 +2627,7 @@ contain the tables, and requires them to be loaded at runtime.
 @item --tables-verify
 This option is for flex development. We document it here in case you stumble
 upon it by accident or in case you suspect some inconsistency in the serialized
-tables.  Flex will serialize the scanner dfa tables but will also generate the
+tables.  Flex will serialize the scanner DFA tables but will also generate the
 in-code tables as it normally does. At runtime, the scanner will verify that
 the serialized tables match the in-code tables, instead of loading them. 
 
